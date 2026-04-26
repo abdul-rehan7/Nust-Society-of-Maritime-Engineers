@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap");
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy: var(--navy);
+  --color-navy-light: var(--navy-light);
+  --color-cyan-glow: var(--cyan-glow);
+  --color-cyan-soft: var(--cyan-soft);
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  --shadow-glow: 0 0 40px -10px var(--cyan-glow);
+  --shadow-card: 0 20px 50px -20px oklch(0.15 0.08 250 / 0.5);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Maritime navy palette */
+  --navy-deep: oklch(0.18 0.06 250);
+  --navy: oklch(0.28 0.09 250);
+  --navy-light: oklch(0.42 0.10 245);
+  --cyan-glow: oklch(0.78 0.15 210);
+  --cyan-soft: oklch(0.92 0.06 220);
+
+  --background: oklch(0.18 0.06 250);
+  --foreground: oklch(0.98 0.01 220);
+  --card: oklch(0.24 0.07 250);
+  --card-foreground: oklch(0.98 0.01 220);
+  --popover: oklch(0.24 0.07 250);
+  --popover-foreground: oklch(0.98 0.01 220);
+  --primary: oklch(0.78 0.15 210);
+  --primary-foreground: oklch(0.18 0.06 250);
+  --secondary: oklch(0.32 0.08 250);
+  --secondary-foreground: oklch(0.98 0.01 220);
+  --muted: oklch(0.30 0.06 250);
+  --muted-foreground: oklch(0.78 0.03 230);
+  --accent: oklch(0.78 0.15 210);
+  --accent-foreground: oklch(0.18 0.06 250);
+  --destructive: oklch(0.65 0.22 25);
+  --destructive-foreground: oklch(0.98 0.01 220);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.78 0.15 210);
+}
+
+.dark {
+  --background: oklch(0.18 0.06 250);
+  --foreground: oklch(0.98 0.01 220);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: oklch(1 0 0 / 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid oklch(1 0 0 / 0.12);
+  }
+  .glass-strong {
+    background: oklch(0.18 0.06 250 / 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid oklch(1 0 0 / 0.08);
+  }
+  .text-gradient {
+    background: linear-gradient(135deg, var(--cyan-soft) 0%, var(--cyan-glow) 50%, oklch(0.85 0.10 220) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(oklch(1 0 0 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(1 0 0 / 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .glow-ring {
+    box-shadow: 0 0 0 1px oklch(0.78 0.15 210 / 0.3), 0 0 30px -5px oklch(0.78 0.15 210 / 0.4);
+  }
+  .gradient-radial {
+    background: radial-gradient(ellipse at top, oklch(0.78 0.15 210 / 0.15), transparent 60%);
+  }
+}
+
