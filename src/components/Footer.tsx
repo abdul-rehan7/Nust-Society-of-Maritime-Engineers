@@ -1,24 +1,23 @@
-import { Anchor, Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
+import { Facebook, Instagram, Linkedin, Mail } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 const socials = [
-  { Icon: Linkedin, href: "#", label: "LinkedIn" },
-  { Icon: Instagram, href: "#", label: "Instagram" },
-  { Icon: Facebook, href: "#", label: "Facebook" },
-  { Icon: Twitter, href: "#", label: "Twitter" },
-  { Icon: Mail, href: "#", label: "Email" },
+  { label: "Instagram", href: "https://www.instagram.com/nustsocietyofmaritimeengineers", icon: Instagram },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/nust-society-of-maritime-engineers/", icon: Linkedin },
+  { label: "Facebook", href: "https://www.facebook.com/nustsocietyofmaritimeengineers", icon: Facebook },
+  { label: "Email", href: "mailto:nsme@pnec.nust.edu.pk", icon: Mail },
 ];
 
 export function Footer() {
   return (
-    <footer id="contact" className="relative border-t border-border mt-10">
+    <footer className="relative border-t border-border mt-10">
       <div className="absolute inset-0 gradient-radial opacity-50 pointer-events-none" />
       <div className="container mx-auto px-6 py-16 relative">
         <div className="grid md:grid-cols-3 gap-10 items-start">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-glow to-navy-light glow-ring">
-                <Anchor className="h-5 w-5 text-navy-deep" strokeWidth={2.5} />
-              </span>
+              <BrandLogo className="h-10 w-10 shadow-sm" />
               <span className="font-display font-bold text-xl">NSME</span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
@@ -39,15 +38,18 @@ export function Footer() {
 
           <div>
             <h4 className="font-display font-semibold mb-4">Connect</h4>
-            <div className="flex gap-2">
-              {socials.map(({ Icon, href, label }) => (
+            <div className="flex flex-wrap gap-3">
+              {socials.map(({ href, label, icon: Icon }) => (
                 <a
                   key={label}
                   href={href}
+                  target={href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={href.startsWith("mailto:") ? undefined : "noreferrer"}
                   aria-label={label}
-                  className="h-10 w-10 inline-flex items-center justify-center rounded-lg glass hover:bg-cyan-glow hover:text-navy-deep transition-all hover:scale-110 hover:shadow-glow"
+                  title={label}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/70 bg-background/40 text-foreground transition-all hover:-translate-y-0.5 hover:border-cyan-glow/40 hover:bg-cyan-glow/10 hover:text-cyan-soft"
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-4.5 w-4.5" />
                 </a>
               ))}
             </div>
@@ -55,8 +57,16 @@ export function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} NUST Society of Maritime Engineers. All rights reserved.</p>
-          <p className="text-xs">Crafted with passion for the seas 🌊</p>
+          <p>
+            © {new Date().getFullYear()}{' '}
+            <Link
+              to="/admin"
+              className="no-underline hover:no-underline focus:no-underline text-current"
+            >
+              NUST
+            </Link>{' '}
+            Society of Maritime Engineers. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Journey } from "@/components/Journey";
 import { Competitions } from "@/components/Competitions";
-import { Footer } from "@/components/Footer";
+import { Team } from "@/components/Team";
+import { ContactForm } from "@/components/ContactForm";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { WaveDivider } from "@/components/WaveDivider";
 
@@ -30,15 +30,16 @@ function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <ScrollProgress />
-      <Navbar />
       <main>
         <Hero />
         <WaveDivider />
         <Journey />
         <WaveDivider flip />
         <Competitions />
+        <WaveDivider />
+        <Team />
+        <ContactForm id="contact" />
       </main>
-      <Footer />
     </div>
   );
 }

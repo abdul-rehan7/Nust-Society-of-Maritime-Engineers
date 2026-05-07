@@ -17,7 +17,7 @@ export function Hero() {
     <section
       ref={ref}
       id="home"
-      className="relative h-screen min-h-[640px] w-full overflow-hidden"
+      className="relative h-screen min-h-160 w-full overflow-hidden"
     >
       {/* Parallax video background */}
       <motion.div
@@ -39,7 +39,7 @@ export function Hero() {
       </motion.div>
 
       {/* Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/70 via-navy-deep/60 to-navy-deep" />
+      <div className="absolute inset-0 bg-linear-to-b from-navy-deep/70 via-navy-deep/60 to-navy-deep" />
       <div className="absolute inset-0 bg-grid opacity-30" />
       <div className="absolute inset-0 gradient-radial" />
 
@@ -98,23 +98,27 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.55 }}
-          className="mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground"
+          className="mt-6 max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground mx-auto"
         >
           Engineering the Future of Maritime Innovation
         </motion.p>
 
-        <motion.button
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.75 }}
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.97 }}
-          onClick={handleExplore}
-          className="group mt-10 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-cyan-glow to-cyan-soft px-8 py-4 text-navy-deep font-semibold glow-ring transition-shadow hover:shadow-glow"
+          className="mt-12 flex flex-col items-center"
         >
-          Explore Our Journey
-          <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-1" />
-        </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={handleExplore}
+            className="group inline-flex items-center gap-3 rounded-full bg-linear-to-r from-cyan-glow to-cyan-soft px-8 py-4 text-navy-deep font-semibold glow-ring transition-shadow hover:shadow-glow"
+          >
+            Explore Our Journey
+            <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-1" />
+          </motion.button>
+        </motion.div>
       </motion.div>
 
       {/* Scroll hint */}

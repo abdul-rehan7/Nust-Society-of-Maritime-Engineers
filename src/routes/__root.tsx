@@ -1,4 +1,6 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 import appCss from "../styles.css?url";
 
@@ -29,19 +31,23 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "NSME | NUST Society of Maritime Engineers" },
+      { name: "description", content: "NUST Society of Maritime Engineers official website." },
+      { name: "author", content: "NSME" },
+      { property: "og:title", content: "NSME | NUST Society of Maritime Engineers" },
+      { property: "og:description", content: "NUST Society of Maritime Engineers official website." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@nustsocietyofmaritimeengineers" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      {
+        rel: "icon",
+        href: "/nust_society_of_maritime_engineers_logo.jpg",
       },
     ],
   }),
@@ -65,5 +71,13 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  return <Outlet />;
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  );
 }

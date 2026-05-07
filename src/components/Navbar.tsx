@@ -1,17 +1,31 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Anchor } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "@tanstack/react-router";
+import { BrandLogo } from "@/components/BrandLogo";
 
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "Our Journey", href: "#journey" },
-  { label: "Competitions", href: "#competitions" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/", section: "#home" },
+  { label: "Our Journey", href: "/", section: "#journey" },
+  { label: "Competitions", href: "/", section: "#competitions" },
+  { label: "Team", href: "/", section: "#team" },
+  { label: "Contact", href: "/", section: "#contact" },
+  { label: "Join NSME", href: "/register", section: null },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+
+  const scrollToSection = (selector: string) => {
+    const element = document.querySelector(selector);
+    if (!element) return;
+
+    const navOffset = 96;
+    const targetTop = element.getBoundingClientRect().top + window.scrollY - navOffset;
+    window.scrollTo({ top: Math.max(targetTop, 0), behavior: "smooth" });
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -20,10 +34,17 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleClick = (href: string) => {
+  const handleClick = (href: string, section: string | null) => {
     setOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (section) {
+      // If we're on the home page, just scroll to section
+      if (location.pathname === "/") {
+        requestAnimationFrame(() => scrollToSection(section));
+      } else {
+        // If we're on another page, navigate home then scroll
+        window.location.assign(href + section);
+      }
+    }
   };
 
   return (
@@ -36,29 +57,33 @@ export function Navbar() {
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <button
-          onClick={() => handleClick("#home")}
+        <Link
+          to="/"
           className="flex items-center gap-2 group"
           aria-label="NSME Home"
         >
-          <span className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-glow to-navy-light glow-ring">
-            <Anchor className="h-5 w-5 text-navy-deep" strokeWidth={2.5} />
-          </span>
+          <BrandLogo className="h-10 w-10 shadow-sm" />
           <span className="font-display font-bold text-xl tracking-tight text-foreground">
             NSME
           </span>
-        </button>
+        </Link>
 
         <nav className="hidden md:flex items-center gap-1">
           {links.map((link) => (
-            <button
-              key={link.href}
-              onClick={() => handleClick(link.href)}
+            <Link
+              key={`${link.label}-${link.section ?? link.href}`}
+              to={link.href}
+              onClick={(e) => {
+                if (link.section) {
+                  e.preventDefault();
+                  handleClick(link.href, link.section);
+                }
+              }}
               className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
             >
               {link.label}
               <span className="absolute inset-x-4 -bottom-0.5 h-px bg-cyan-glow scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
-            </button>
+            </Link>
           ))}
         </nav>
 
@@ -105,16 +130,26 @@ export function Navbar() {
           >
             <nav className="container mx-auto px-6 py-4 flex flex-col gap-1">
               {links.map((link, i) => (
-                <motion.button
-                  key={link.href}
+                <motion.div
+                  key={`${link.label}-${link.section ?? link.href}`}
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: i * 0.05 }}
-                  onClick={() => handleClick(link.href)}
-                  className="text-left px-4 py-3 rounded-lg text-foreground hover:bg-white/5 transition-colors"
                 >
-                  {link.label}
-                </motion.button>
+                  <Link
+                    to={link.href}
+                    onClick={(e) => {
+                      if (link.section) {
+                        e.preventDefault();
+                        handleClick(link.href, link.section);
+                      }
+                      setOpen(false);
+                    }}
+                    className="block text-left px-4 py-3 rounded-lg text-foreground hover:bg-white/5 transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               ))}
             </nav>
           </motion.div>
