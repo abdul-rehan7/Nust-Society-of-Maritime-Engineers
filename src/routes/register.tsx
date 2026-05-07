@@ -25,17 +25,6 @@ function RegisterPage() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="w-full max-w-3xl text-center"
             >
-              {/* Badge */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.1, duration: 0.5 }}
-                className="inline-flex items-center gap-2 rounded-full border border-cyan-glow/30 bg-cyan-glow/10 px-4 py-1.5 mb-5 text-sm text-cyan-soft"
-              >
-                <Anchor className="h-4 w-4" />
-                Open Recruitment
-              </motion.div>
-
               {/* Main heading */}
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
