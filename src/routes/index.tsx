@@ -10,13 +10,13 @@ import { WaveDivider } from "@/components/WaveDivider";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NSME — NUST Society of Maritime Engineers" },
+      { title: "NSME | NUST Society of Maritime Engineers" },
       {
         name: "description",
         content:
           "NUST Society of Maritime Engineers (NSME) at PNEC — engineering the future of maritime innovation through international competitions, ROV projects, and naval design.",
       },
-      { property: "og:title", content: "NSME — NUST Society of Maritime Engineers" },
+      { property: "og:title", content: "NSME | NUST Society of Maritime Engineers" },
       {
         property: "og:description",
         content: "Engineering the Future of Maritime Innovation — NUST PNEC's premier maritime engineering society.",
