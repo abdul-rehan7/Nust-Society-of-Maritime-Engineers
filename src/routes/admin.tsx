@@ -13,6 +13,9 @@ import {
   Shield,
   Trash2,
   Users,
+  Download,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
@@ -33,6 +36,7 @@ function AdminPage() {
   const [regEnabled, setRegEnabled] = useState<boolean | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const totalRecords = useMemo(() => registrations.length + contacts.length, [registrations.length, contacts.length]);
 
@@ -222,6 +226,7 @@ function AdminPage() {
     localStorage.removeItem("adminSession");
     setEmail("");
     setPassword("");
+    setShowPassword(false);
     setLoggedIn(false);
     setRegistrations([]);
     setContacts([]);
@@ -238,6 +243,63 @@ function AdminPage() {
   const formatDate = (value: string) => {
     const d = new Date(value);
     return Number.isNaN(d.getTime()) ? "-" : d.toLocaleDateString();
+  };
+
+  const csvEscape = (value: any) => {
+    const str = value === null || value === undefined ? "" : String(value);
+    if (/[",\n\r]/.test(str)) {
+      return `"${str.replace(/"/g, '""')}"`;
+    }
+    return str;
+  };
+
+  const downloadRegistrationsCsv = () => {
+    if (registrations.length === 0) {
+      setError("No registration data to download. Load registrations first.");
+      return;
+    }
+    clearMessages();
+    const headers = [
+      "Name",
+      "Email",
+      "Semester",
+      "Department",
+      "CNIC",
+      "Living Status",
+      "Preferred Department",
+      "WhatsApp Number",
+      "LinkedIn URL",
+      "Any Experience",
+      "Skills",
+      "Motivation",
+      "Submitted",
+    ];
+    const rows = registrations.map((r) => [
+      r.name,
+      r.email,
+      r.semester,
+      r.department,
+      r.cnic,
+      r.living_status,
+      r.preferred_department,
+      r.whatsapp_number,
+      r.linkedin_url,
+      r.any_experience,
+      r.skills,
+      r.motivation,
+      r.created_at,
+    ]);
+    const csv = [headers, ...rows].map((row) => row.map(csvEscape).join(",")).join("\r\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `nsme-registrations-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    setNotice("Registrations exported to CSV.");
   };
 
   return (
@@ -292,13 +354,24 @@ function AdminPage() {
 
               <div>
                 <label className="mb-2 block text-sm font-medium">Password</label>
-                <input
-                  className="input w-full rounded-xl border border-border/80 bg-background/70 px-4 py-2.5"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
-                />
+                <div className="relative">
+                  <input
+                    className="input w-full rounded-xl border border-border/80 bg-background/70 pl-4 pr-11 py-2.5"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-lg text-muted-foreground"
+                    onClick={() => setShowPassword((v) => !v)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
               </div>
 
               <div className="flex flex-wrap gap-3 pt-1">
@@ -363,6 +436,15 @@ function AdminPage() {
                 Load Contacts
               </button>
 
+              <button
+                className="btn inline-flex items-center gap-2"
+                onClick={downloadRegistrationsCsv}
+                disabled={registrations.length === 0}
+              >
+                <Download className="h-4 w-4" />
+                Download CSV
+              </button>
+
               <button className="btn inline-flex items-center gap-2" onClick={async () => { await fetchSettings(); }}>
                 <RefreshCw className="h-4 w-4" />
                 Refresh Public Settings
@@ -417,8 +499,12 @@ function AdminPage() {
                         <th className="pb-3 pr-3">Email</th>
                         <th className="pb-3 pr-3">Semester</th>
                         <th className="pb-3 pr-3">Department</th>
+                        <th className="pb-3 pr-3">CNIC</th>
+                        <th className="pb-3 pr-3">Living Status</th>
                         <th className="pb-3 pr-3">Preferred</th>
                         <th className="pb-3 pr-3">WhatsApp</th>
+                        <th className="pb-3 pr-3">LinkedIn</th>
+                        <th className="pb-3 pr-3">Experience</th>
                         <th className="pb-3 pr-3">Skills</th>
                         <th className="pb-3 pr-3">Motivation</th>
                         <th className="pb-3">Submitted</th>
@@ -432,8 +518,12 @@ function AdminPage() {
                           <td className="py-3 pr-3">{r.email}</td>
                           <td className="py-3 pr-3">{r.semester}</td>
                           <td className="py-3 pr-3">{r.department}</td>
+                          <td className="py-3 pr-3">{r.cnic}</td>
+                          <td className="py-3 pr-3">{r.living_status}</td>
                           <td className="py-3 pr-3">{r.preferred_department}</td>
                           <td className="py-3 pr-3">{r.whatsapp_number}</td>
+                          <td className="py-3 pr-3 max-w-xs whitespace-pre-wrap wrap-break-word">{r.linkedin_url}</td>
+                          <td className="py-3 pr-3 max-w-xs whitespace-pre-wrap wrap-break-word">{r.any_experience}</td>
                           <td className="py-3 pr-3 max-w-xs whitespace-pre-wrap wrap-break-word">{r.skills}</td>
                           <td className="py-3 pr-3 max-w-xs whitespace-pre-wrap wrap-break-word">{r.motivation}</td>
                           <td className="py-3">{formatDate(r.created_at)}</td>
