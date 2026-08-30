@@ -1,3 +1,23 @@
+alter table public.registration_responses
+  add column if not exists nsme_knowledge text;
+
+-- Drop all CHECK constraints on registration_responses so older value/length
+-- rules (e.g. linkedin_url, preferred_department) never block new submissions.
+-- Validation is handled by the app forms.
+do $$
+declare
+  r record;
+begin
+  for r in
+    select conname
+    from pg_constraint
+    where conrelid = 'public.registration_responses'::regclass
+      and contype = 'c'
+  loop
+    execute format('alter table public.registration_responses drop constraint %I', r.conname);
+  end loop;
+end $$;
+
 create or replace function public.admin_set_registration_enabled(
   p_email text,
   p_enabled boolean,
@@ -91,6 +111,7 @@ returns table(
   any_experience text,
   skills text,
   motivation text,
+  nsme_knowledge text,
   created_at timestamptz
 )
 language plpgsql
@@ -117,6 +138,7 @@ begin
     r.any_experience,
     r.skills,
     r.motivation,
+    r.nsme_knowledge,
     r.created_at
   from public.registration_responses r
   order by r.created_at desc;

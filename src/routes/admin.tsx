@@ -272,6 +272,7 @@ function AdminPage() {
       "Any Experience",
       "Skills",
       "Motivation",
+      "NSME Knowledge",
       "Submitted",
     ];
     const rows = registrations.map((r) => [
@@ -287,6 +288,7 @@ function AdminPage() {
       r.any_experience,
       r.skills,
       r.motivation,
+      r.nsme_knowledge,
       r.created_at,
     ]);
     const csv = [headers, ...rows].map((row) => row.map(csvEscape).join(",")).join("\r\n");
@@ -507,6 +509,7 @@ function AdminPage() {
                         <th className="pb-3 pr-3">Experience</th>
                         <th className="pb-3 pr-3">Skills</th>
                         <th className="pb-3 pr-3">Motivation</th>
+                        <th className="pb-3 pr-3">NSME Knowledge</th>
                         <th className="pb-3">Submitted</th>
                         <th className="pb-3 text-right">Actions</th>
                       </tr>
@@ -526,6 +529,7 @@ function AdminPage() {
                           <td className="py-3 pr-3 max-w-xs whitespace-pre-wrap wrap-break-word">{r.any_experience}</td>
                           <td className="py-3 pr-3 max-w-xs whitespace-pre-wrap wrap-break-word">{r.skills}</td>
                           <td className="py-3 pr-3 max-w-xs whitespace-pre-wrap wrap-break-word">{r.motivation}</td>
+                          <td className="py-3 pr-3 max-w-xs whitespace-pre-wrap wrap-break-word">{r.nsme_knowledge}</td>
                           <td className="py-3">{formatDate(r.created_at)}</td>
                           <td className="py-3 text-right">
                             <button

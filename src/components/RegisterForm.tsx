@@ -7,6 +7,8 @@ export function RegisterForm() {
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [registrationEnabled, setRegistrationEnabled] = useState<boolean | null>(null);
+  const [preferredTeam, setPreferredTeam] = useState("Technical");
+  const [technicalBranch, setTechnicalBranch] = useState("Design & Analysis");
 
   useEffect(() => {
     // fetch public settings; if not available, assume enabled
@@ -38,19 +40,25 @@ export function RegisterForm() {
     const department = (fd.get("department") as string) || "";
     const cnic = (fd.get("cnic") as string) || "";
     const living_status = (fd.get("living_status") as string) || "Hostelite";
-    const preferred_department = (fd.get("preferred_department") as string) || "Design and Fabrication";
+    const preferred_team = (fd.get("preferred_team") as string) || "Technical";
+    const preferred_department =
+      preferred_team === "Technical"
+        ? (fd.get("technical_branch") as string) || "Design & Analysis"
+        : preferred_team;
     const email = (fd.get("email") as string) || "";
     const any_experience = (fd.get("any_experience") as string) || null;
     const skills = (fd.get("skills") as string) || "";
     const whatsapp_number = (fd.get("whatsapp_number") as string) || "";
     const linkedin_url = (fd.get("linkedin_url") as string) || null;
     const motivation = (fd.get("motivation") as string) || "";
+    const nsme_knowledge = (fd.get("nsme_knowledge") as string) || "";
 
     if (name.length < 2 || name.length > 100) return setError("Name must be 2-100 characters");
     if (cnic.length !== 13 || !/^[0-9]{13}$/.test(cnic)) return setError("CNIC must be 13 digits");
     if (skills.length === 0 || skills.length > 300) return setError("Skills required (max 300 chars)");
     if (whatsapp_number.length < 11 || whatsapp_number.length > 13) return setError("WhatsApp number must be 11-13 digits");
     if (motivation.length < 20 || motivation.length > 1000) return setError("Motivation must be 20-1000 characters");
+    if (nsme_knowledge.length < 5 || nsme_knowledge.length > 500) return setError("Please share what you know about NSME (5-500 characters)");
 
     setLoading(true);
     const { data, error: supaErr } = await supabase.from("registration_responses").insert([
@@ -67,6 +75,7 @@ export function RegisterForm() {
         whatsapp_number,
         linkedin_url,
         motivation,
+        nsme_knowledge,
       },
     ]);
     setLoading(false);
@@ -168,10 +177,75 @@ export function RegisterForm() {
           <div className="md:col-span-2 rounded-xl border border-border/80 bg-background/40 p-4">
             <p className="text-sm font-medium mb-2">Preferred Team</p>
             <div className="flex flex-wrap gap-4 text-sm">
-              <label className="flex items-center gap-2"><input type="radio" name="preferred_department" value="Design and Fabrication" defaultChecked /> Design and Fabrication</label>
-              <label className="flex items-center gap-2"><input type="radio" name="preferred_department" value="Marketing" /> Marketing</label>
-              <label className="flex items-center gap-2"><input type="radio" name="preferred_department" value="Media" /> Media</label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="preferred_team"
+                  value="Technical"
+                  checked={preferredTeam === "Technical"}
+                  onChange={() => setPreferredTeam("Technical")}
+                />
+                Technical
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="preferred_team"
+                  value="Marketing"
+                  checked={preferredTeam === "Marketing"}
+                  onChange={() => setPreferredTeam("Marketing")}
+                />
+                Marketing
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="preferred_team"
+                  value="Media & Communication"
+                  checked={preferredTeam === "Media & Communication"}
+                  onChange={() => setPreferredTeam("Media & Communication")}
+                />
+                Media & Communication
+              </label>
             </div>
+
+            {preferredTeam === "Technical" && (
+              <div className="mt-4">
+                <p className="text-sm text-muted-foreground mb-2">Choose your technical branch</p>
+                <div className="flex flex-wrap gap-4 text-sm">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="technical_branch"
+                      value="Design & Analysis"
+                      checked={technicalBranch === "Design & Analysis"}
+                      onChange={() => setTechnicalBranch("Design & Analysis")}
+                    />
+                    Design & Analysis
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="technical_branch"
+                      value="Fabrication Unit"
+                      checked={technicalBranch === "Fabrication Unit"}
+                      onChange={() => setTechnicalBranch("Fabrication Unit")}
+                    />
+                    Fabrication Unit
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="technical_branch"
+                      value="Automation & Control"
+                      checked={technicalBranch === "Automation & Control"}
+                      onChange={() => setTechnicalBranch("Automation & Control")}
+                    />
+                    Automation & Control
+                  </label>
+                </div>
+              </div>
+            )}
           </div>
 
           <div>
@@ -202,6 +276,11 @@ export function RegisterForm() {
           <div className="md:col-span-2">
             <label className="mb-2 block text-sm font-medium">Motivation</label>
             <textarea name="motivation" placeholder="What motivates you to join NSME?" className="input min-h-32 w-full rounded-xl border border-border/80 bg-background/70" required minLength={20} maxLength={1000} />
+          </div>
+
+          <div className="md:col-span-2">
+            <label className="mb-2 block text-sm font-medium">What do you know about NSME?</label>
+            <textarea name="nsme_knowledge" placeholder="Share your understanding of the society, its projects, and achievements" className="input min-h-24 w-full rounded-xl border border-border/80 bg-background/70" required minLength={5} maxLength={500} />
           </div>
 
           <div className="md:col-span-2 flex flex-col items-center gap-3 pt-2">
