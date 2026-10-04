@@ -21,7 +21,7 @@ export function Footer() {
               <span className="font-display font-bold text-xl">NSME</span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-              NUST Society of Maritime Engineers — engineering the future of maritime innovation from PNEC.
+              NUST Society of Maritime Engineers - engineering the future of maritime innovation from PNEC.
             </p>
           </div>
 
@@ -58,14 +58,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
           <p>
-            © {new Date().getFullYear()}{' '}
-            <Link
-              to="/admin"
-              className="no-underline hover:no-underline focus:no-underline text-current"
-            >
-              NUST
-            </Link>{' '}
-            Society of Maritime Engineers. All rights reserved.
+            &copy; {new Date().getFullYear()} NUST Society of Maritime Engineers. All rights reserved.
           </p>
         </div>
       </div>

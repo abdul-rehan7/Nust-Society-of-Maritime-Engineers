@@ -64,9 +64,9 @@ const items = [
   },
   {
     year: "2025",
-    title: "Exhibitions & Activities",
-    body: "Participated in PIMEC & IEEEP exhibitions and organized the second Boat Building Competition.",
-    icon: Waves,
+    title: "Pipe ROV",
+    body: "Developed a Pipe ROV designed to inspect and navigate through pipelines, showcasing practical underwater inspection capabilities.",
+    icon: Wrench,
   },
   {
     year: "2025–26",
@@ -77,7 +77,7 @@ const items = [
   {
     year: "2026",
     title: "Future Goals",
-    body: "Preparing for Teknofest 2026 with an Autonomous Underwater Vehicle (AUV). Planning a larger Boat Building Competition.",
+    body: "Expanding into Ferry Design, scaling up Boat Building activities, and advancing AUV Fabrication for upcoming projects and competitions.",
     icon: Target,
   },
 ];
@@ -101,7 +101,7 @@ export function Journey() {
             Our <span className="text-gradient">Journey</span>
           </h2>
           <p className="mt-5 text-muted-foreground text-lg">
-            From a small student team to an internationally recognized society — the journey continues.
+            From a small student team to an internationally recognized society - the journey continues.
           </p>
         </motion.div>
 
@@ -147,7 +147,7 @@ export function Journey() {
                       <h3 className="font-display font-semibold text-xl mb-2">
                         {item.title}
                       </h3>
-                      <p className="text-muted-foreground leading-relaxed text-[15px]">
+                      <p className="text-muted-foreground leading-relaxed text-[15px] whitespace-pre-line">
                         {item.body}
                       </p>
                     </motion.div>
@@ -171,7 +171,7 @@ export function Journey() {
             <div className="inline-flex items-center gap-3 px-6 py-4 rounded-2xl glass">
               <Rocket className="h-5 w-5 text-cyan-glow" />
               <p className="font-display text-lg italic text-foreground">
-                "From a small student team to an internationally recognized society — the journey continues."
+                "From a small student team to an internationally recognized society - the journey continues."
               </p>
             </div>
           </motion.div>

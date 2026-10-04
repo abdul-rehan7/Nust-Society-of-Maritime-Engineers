@@ -20,12 +20,6 @@ const comps = [
     desc: "Remotely Operated Vehicle presented at IDEAS 2024 — demonstrating real-world underwater engineering capabilities.",
     tag: "Showcase",
   },
-  {
-    icon: Cpu,
-    title: "Teknofest 2026",
-    desc: "Upcoming international competition in Türkiye focused on Autonomous Underwater Vehicles (AUVs) — our next frontier.",
-    tag: "Upcoming",
-  },
 ];
 
 export function Competitions() {
@@ -50,7 +44,7 @@ export function Competitions() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {comps.map((c, i) => {
             const Icon = c.icon;
             return (
