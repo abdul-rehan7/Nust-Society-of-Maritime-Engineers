@@ -12,6 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CompetitionsWfsaRouteImport } from './routes/competitions/wfsa'
+import { Route as CompetitionsRovRouteImport } from './routes/competitions/rov'
+import { Route as CompetitionsBoatBuildingRouteImport } from './routes/competitions/boat-building'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
@@ -28,35 +31,82 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CompetitionsWfsaRoute = CompetitionsWfsaRouteImport.update({
+  id: '/competitions/wfsa',
+  path: '/competitions/wfsa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompetitionsRovRoute = CompetitionsRovRouteImport.update({
+  id: '/competitions/rov',
+  path: '/competitions/rov',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompetitionsBoatBuildingRoute =
+  CompetitionsBoatBuildingRouteImport.update({
+    id: '/competitions/boat-building',
+    path: '/competitions/boat-building',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/register': typeof RegisterRoute
+  '/competitions/boat-building': typeof CompetitionsBoatBuildingRoute
+  '/competitions/rov': typeof CompetitionsRovRoute
+  '/competitions/wfsa': typeof CompetitionsWfsaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/register': typeof RegisterRoute
+  '/competitions/boat-building': typeof CompetitionsBoatBuildingRoute
+  '/competitions/rov': typeof CompetitionsRovRoute
+  '/competitions/wfsa': typeof CompetitionsWfsaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/register': typeof RegisterRoute
+  '/competitions/boat-building': typeof CompetitionsBoatBuildingRoute
+  '/competitions/rov': typeof CompetitionsRovRoute
+  '/competitions/wfsa': typeof CompetitionsWfsaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/register'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/register'
+    | '/competitions/boat-building'
+    | '/competitions/rov'
+    | '/competitions/wfsa'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/register'
-  id: '__root__' | '/' | '/admin' | '/register'
+  to:
+    | '/'
+    | '/admin'
+    | '/register'
+    | '/competitions/boat-building'
+    | '/competitions/rov'
+    | '/competitions/wfsa'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/register'
+    | '/competitions/boat-building'
+    | '/competitions/rov'
+    | '/competitions/wfsa'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
   RegisterRoute: typeof RegisterRoute
+  CompetitionsBoatBuildingRoute: typeof CompetitionsBoatBuildingRoute
+  CompetitionsRovRoute: typeof CompetitionsRovRoute
+  CompetitionsWfsaRoute: typeof CompetitionsWfsaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +132,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/competitions/wfsa': {
+      id: '/competitions/wfsa'
+      path: '/competitions/wfsa'
+      fullPath: '/competitions/wfsa'
+      preLoaderRoute: typeof CompetitionsWfsaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/competitions/rov': {
+      id: '/competitions/rov'
+      path: '/competitions/rov'
+      fullPath: '/competitions/rov'
+      preLoaderRoute: typeof CompetitionsRovRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/competitions/boat-building': {
+      id: '/competitions/boat-building'
+      path: '/competitions/boat-building'
+      fullPath: '/competitions/boat-building'
+      preLoaderRoute: typeof CompetitionsBoatBuildingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +160,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   RegisterRoute: RegisterRoute,
+  CompetitionsBoatBuildingRoute: CompetitionsBoatBuildingRoute,
+  CompetitionsRovRoute: CompetitionsRovRoute,
+  CompetitionsWfsaRoute: CompetitionsWfsaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -47,13 +47,22 @@ export function Navbar() {
     }
   };
 
+  /* When at the very top on home page (hero), navbar text is white on dark background.
+     On other pages or when scrolled, use dark text on light glass. */
+  const isHome = location.pathname === "/";
+  const atTop = isHome && !scrolled && !open;
+
   return (
     <motion.header
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled || open ? "glass-strong py-3" : "bg-transparent py-5"
+        scrolled || open
+          ? "glass-strong py-3 shadow-sm"
+          : isHome
+          ? "bg-transparent py-5"
+          : "glass-strong py-3 shadow-sm"
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
@@ -63,7 +72,11 @@ export function Navbar() {
           aria-label="NSME Home"
         >
           <BrandLogo className="h-10 w-10 shadow-sm" />
-          <span className="font-display font-bold text-xl tracking-tight text-foreground">
+          <span
+            className={`font-display font-bold text-xl tracking-tight transition-colors ${
+              atTop ? "text-white" : "text-foreground"
+            }`}
+          >
             NSME
           </span>
         </Link>
@@ -79,16 +92,26 @@ export function Navbar() {
                   handleClick(link.href, link.section);
                 }
               }}
-              className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
+              className={`relative px-4 py-2 text-sm font-medium transition-colors group ${
+                atTop
+                  ? "text-white/75 hover:text-white"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
             >
               {link.label}
-              <span className="absolute inset-x-4 -bottom-0.5 h-px bg-cyan-glow scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+              <span className="absolute inset-x-4 -bottom-0.5 h-px bg-sea scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
             </Link>
           ))}
         </nav>
 
         <button
-          className="md:hidden h-10 w-10 inline-flex items-center justify-center rounded-lg glass"
+          className={`md:hidden h-10 w-10 inline-flex items-center justify-center rounded-lg ${
+            scrolled || open
+              ? "glass text-foreground"
+              : isHome
+              ? "glass-dark text-white"
+              : "glass text-foreground"
+          }`}
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={open}
@@ -145,7 +168,7 @@ export function Navbar() {
                       }
                       setOpen(false);
                     }}
-                    className="block text-left px-4 py-3 rounded-lg text-foreground hover:bg-white/5 transition-colors"
+                    className="block text-left px-4 py-3 rounded-lg text-foreground hover:bg-sea/5 hover:text-sea transition-colors"
                   >
                     {link.label}
                   </Link>

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -30,53 +30,58 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-navy-deep: var(--navy-deep);
-  --color-navy: var(--navy);
-  --color-navy-light: var(--navy-light);
-  --color-cyan-glow: var(--cyan-glow);
-  --color-cyan-soft: var(--cyan-soft);
 
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  /* Maritime palette — sea blues */
+  --color-sea-deep: var(--sea-deep);
+  --color-sea: var(--sea);
+  --color-sea-light: var(--sea-light);
+  --color-sea-pale: var(--sea-pale);
+  --color-sea-foam: var(--sea-foam);
 
-  --shadow-glow: 0 0 40px -10px var(--cyan-glow);
-  --shadow-card: 0 20px 50px -20px oklch(0.15 0.08 250 / 0.5);
+  /* Legacy aliases so existing Tailwind classes still resolve */
+  --color-navy-deep: var(--sea-deep);
+  --color-navy: var(--sea);
+  --color-navy-light: var(--sea-light);
+  --color-cyan-glow: var(--sea);
+  --color-cyan-soft: var(--sea-light);
+
+  --font-display: "Poppins", system-ui, sans-serif;
+  --font-body: "Poppins", system-ui, sans-serif;
+
+  --shadow-glow: 0 0 40px -10px var(--sea);
+  --shadow-card: 0 8px 32px -8px oklch(0.55 0.12 230 / 0.12);
 }
 
 :root {
   --radius: 0.75rem;
 
-  /* Maritime navy palette */
-  --navy-deep: oklch(0.18 0.06 250);
-  --navy: oklch(0.28 0.09 250);
-  --navy-light: oklch(0.42 0.10 245);
-  --cyan-glow: oklch(0.78 0.15 210);
-  --cyan-soft: oklch(0.92 0.06 220);
+  /* ─── Sea-blue palette ────────────────────────────────── */
+  --sea-deep: oklch(0.28 0.12 235);       /* deep navy — hero overlay, footer */
+  --sea: oklch(0.52 0.14 230);            /* primary sea blue */
+  --sea-light: oklch(0.62 0.13 225);      /* lighter sea blue */
+  --sea-pale: oklch(0.92 0.04 225);       /* very pale blue — section tint */
+  --sea-foam: oklch(0.97 0.01 220);       /* near-white blue — subtle bg */
 
-  --background: oklch(0.18 0.06 250);
-  --foreground: oklch(0.98 0.01 220);
-  --card: oklch(0.24 0.07 250);
-  --card-foreground: oklch(0.98 0.01 220);
-  --popover: oklch(0.24 0.07 250);
-  --popover-foreground: oklch(0.98 0.01 220);
-  --primary: oklch(0.78 0.15 210);
-  --primary-foreground: oklch(0.18 0.06 250);
-  --secondary: oklch(0.32 0.08 250);
-  --secondary-foreground: oklch(0.98 0.01 220);
-  --muted: oklch(0.30 0.06 250);
-  --muted-foreground: oklch(0.78 0.03 230);
-  --accent: oklch(0.78 0.15 210);
-  --accent-foreground: oklch(0.18 0.06 250);
-  --destructive: oklch(0.65 0.22 25);
-  --destructive-foreground: oklch(0.98 0.01 220);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.78 0.15 210);
-}
-
-.dark {
-  --background: oklch(0.18 0.06 250);
-  --foreground: oklch(0.98 0.01 220);
+  /* ─── Light theme tokens ──────────────────────────────── */
+  --background: oklch(0.99 0.002 220);    /* white */
+  --foreground: oklch(0.18 0.04 245);     /* near-black */
+  --card: oklch(1 0 0);                   /* pure white card */
+  --card-foreground: oklch(0.18 0.04 245);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.04 245);
+  --primary: oklch(0.52 0.14 230);        /* sea blue */
+  --primary-foreground: oklch(0.99 0 0);  /* white on blue */
+  --secondary: oklch(0.95 0.02 225);      /* pale blue */
+  --secondary-foreground: oklch(0.28 0.12 235);
+  --muted: oklch(0.96 0.01 220);          /* soft grey-blue */
+  --muted-foreground: oklch(0.48 0.04 240);
+  --accent: oklch(0.52 0.14 230);
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.88 0.02 230);
+  --input: oklch(0.92 0.02 225);
+  --ring: oklch(0.52 0.14 230);
 }
 
 @layer base {
@@ -99,35 +104,78 @@
 }
 
 @layer utilities {
+  /* Glass card — light-theme version */
   .glass {
-    background: oklch(1 0 0 / 0.06);
+    background: oklch(1 0 0 / 0.65);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid oklch(1 0 0 / 0.12);
+    border: 1px solid oklch(0.52 0.14 230 / 0.12);
+    box-shadow: 0 2px 12px -4px oklch(0.52 0.14 230 / 0.08);
   }
+  /* Strong glass — navbar / hero pill */
   .glass-strong {
-    background: oklch(0.18 0.06 250 / 0.7);
+    background: oklch(1 0 0 / 0.82);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid oklch(1 0 0 / 0.08);
+    border-bottom: 1px solid oklch(0.52 0.14 230 / 0.12);
+    box-shadow: 0 1px 8px -2px oklch(0.52 0.14 230 / 0.10);
   }
+  /* Glass for dark-background sections (hero, sea-blue sections) */
+  .glass-dark {
+    background: oklch(1 0 0 / 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid oklch(1 0 0 / 0.14);
+  }
+  .glass-dark-strong {
+    background: oklch(0.28 0.12 235 / 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid oklch(1 0 0 / 0.10);
+  }
+  /* Gradient text — sea blue */
   .text-gradient {
-    background: linear-gradient(135deg, var(--cyan-soft) 0%, var(--cyan-glow) 50%, oklch(0.85 0.10 220) 100%);
+    background: linear-gradient(135deg, var(--sea) 0%, var(--sea-light) 50%, oklch(0.68 0.10 218) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Gradient text for dark backgrounds */
+  .text-gradient-light {
+    background: linear-gradient(135deg, oklch(0.92 0.06 220) 0%, oklch(0.82 0.10 215) 50%, oklch(0.97 0.02 220) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
   .bg-grid {
     background-image:
-      linear-gradient(oklch(1 0 0 / 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(1 0 0 / 0.04) 1px, transparent 1px);
+      linear-gradient(oklch(0.52 0.14 230 / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.52 0.14 230 / 0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .bg-grid-light {
+    background-image:
+      linear-gradient(oklch(1 0 0 / 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(1 0 0 / 0.08) 1px, transparent 1px);
     background-size: 60px 60px;
   }
   .glow-ring {
-    box-shadow: 0 0 0 1px oklch(0.78 0.15 210 / 0.3), 0 0 30px -5px oklch(0.78 0.15 210 / 0.4);
+    box-shadow: 0 0 0 1px oklch(0.52 0.14 230 / 0.25), 0 0 24px -5px oklch(0.52 0.14 230 / 0.25);
   }
   .gradient-radial {
-    background: radial-gradient(ellipse at top, oklch(0.78 0.15 210 / 0.15), transparent 60%);
+    background: radial-gradient(ellipse at top, oklch(0.52 0.14 230 / 0.08), transparent 60%);
+  }
+  .gradient-radial-strong {
+    background: radial-gradient(ellipse at top, oklch(0.52 0.14 230 / 0.15), transparent 50%);
+  }
+
+  /* Sea-blue section backgrounds */
+  .bg-sea-section {
+    background: linear-gradient(180deg, var(--sea-deep) 0%, oklch(0.35 0.12 232) 100%);
+    color: oklch(0.98 0 0);
+  }
+  .bg-sea-pale-section {
+    background: var(--sea-pale);
   }
 }
 
@@ -135,8 +183,8 @@
   .input {
     width: 100%;
     border-radius: var(--radius-lg);
-    border: 1px solid oklch(1 0 0 / 0.16);
-    background: oklch(1 0 0 / 0.04);
+    border: 1px solid var(--color-border);
+    background: oklch(1 0 0 / 0.8);
     color: var(--color-foreground);
     padding: 0.72rem 0.95rem;
     font-size: 0.95rem;
@@ -146,20 +194,20 @@
 
   .input::placeholder {
     color: var(--color-muted-foreground);
-    opacity: 0.9;
+    opacity: 0.7;
   }
 
   .input:hover {
-    border-color: oklch(1 0 0 / 0.24);
-    background: oklch(1 0 0 / 0.06);
+    border-color: oklch(0.52 0.14 230 / 0.35);
+    background: oklch(1 0 0 / 0.95);
   }
 
   .input:focus,
   .input:focus-visible {
     outline: none;
-    border-color: oklch(0.78 0.15 210 / 0.7);
-    box-shadow: 0 0 0 3px oklch(0.78 0.15 210 / 0.18);
-    background: oklch(1 0 0 / 0.08);
+    border-color: oklch(0.52 0.14 230 / 0.6);
+    box-shadow: 0 0 0 3px oklch(0.52 0.14 230 / 0.12);
+    background: oklch(1 0 0);
   }
 
   textarea.input {
@@ -180,9 +228,9 @@
     padding: 0.75rem 1.4rem;
     min-height: 2.75rem;
     border-radius: var(--radius-lg);
-    border: 1px solid oklch(0.78 0.15 210 / 0.4);
-    background: linear-gradient(135deg, oklch(0.78 0.15 210 / 0.2), oklch(0.78 0.15 210 / 0.08));
-    color: var(--color-foreground);
+    border: 1px solid oklch(0.52 0.14 230 / 0.35);
+    background: linear-gradient(135deg, oklch(0.52 0.14 230 / 0.10), oklch(0.52 0.14 230 / 0.04));
+    color: var(--sea);
     font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: -0.01em;
@@ -196,27 +244,27 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, oklch(1 0 0 / 0.1), transparent);
+    background: linear-gradient(135deg, oklch(0.52 0.14 230 / 0.08), transparent);
     opacity: 0;
     transition: opacity 200ms ease;
     pointer-events: none;
   }
 
   .btn:hover:not(:disabled) {
-    border-color: oklch(0.78 0.15 210 / 0.7);
-    background: linear-gradient(135deg, oklch(0.78 0.15 210 / 0.3), oklch(0.78 0.15 210 / 0.12));
+    border-color: oklch(0.52 0.14 230 / 0.5);
+    background: linear-gradient(135deg, oklch(0.52 0.14 230 / 0.15), oklch(0.52 0.14 230 / 0.06));
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px -6px oklch(0.78 0.15 210 / 0.35);
+    box-shadow: 0 8px 24px -6px oklch(0.52 0.14 230 / 0.25);
   }
 
   .btn:active:not(:disabled) {
     transform: translateY(0);
-    box-shadow: 0 2px 8px -2px oklch(0.78 0.15 210 / 0.2);
+    box-shadow: 0 2px 8px -2px oklch(0.52 0.14 230 / 0.15);
   }
 
   .btn:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px oklch(0.18 0.06 250 / 1), 0 0 0 6px oklch(0.78 0.15 210 / 0.4);
+    box-shadow: 0 0 0 3px oklch(1 0 0 / 1), 0 0 0 6px oklch(0.52 0.14 230 / 0.3);
   }
 
   .btn:disabled {
@@ -224,5 +272,52 @@
     cursor: not-allowed;
     transform: none !important;
   }
-}
 
+  /* Solid sea-blue button for hero CTAs & important actions */
+  .btn-solid {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.6rem;
+    min-height: 2.75rem;
+    border-radius: var(--radius-lg);
+    border: none;
+    background: linear-gradient(135deg, var(--sea) 0%, var(--sea-light) 100%);
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px -4px oklch(0.52 0.14 230 / 0.4);
+  }
+
+  .btn-solid:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px -6px oklch(0.52 0.14 230 / 0.5);
+  }
+
+  .btn-solid:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  /* Inputs for dark-background sections */
+  .input-dark {
+    background: oklch(1 0 0 / 0.08);
+    border-color: oklch(1 0 0 / 0.18);
+    color: white;
+  }
+  .input-dark::placeholder {
+    color: oklch(1 0 0 / 0.5);
+  }
+  .input-dark:hover {
+    border-color: oklch(1 0 0 / 0.28);
+    background: oklch(1 0 0 / 0.12);
+  }
+  .input-dark:focus {
+    border-color: oklch(0.72 0.12 215 / 0.7);
+    box-shadow: 0 0 0 3px oklch(0.72 0.12 215 / 0.2);
+    background: oklch(1 0 0 / 0.14);
+  }
+}

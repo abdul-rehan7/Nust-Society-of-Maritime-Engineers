@@ -1,100 +1,82 @@
-import type { ComponentType } from "react";
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Camera, Compass, Cpu, Megaphone, UserCircle2, X } from "lucide-react";
+import { motion } from "framer-motion";
 
-type Member = {
+type Lead = {
   name: string;
-  isLead?: boolean;
+  role: string;
+  year: string;
+  image: string;
 };
 
-type Department = {
-  name: string;
-  description: string;
-  icon: ComponentType<{ className?: string }>;
-  members: Member[];
-};
-
-const departments: Department[] = [
+const leads: Lead[] = [
   {
-    name: "Design & Analysis",
-    description: "Concepts, hydrodynamic thinking, and engineering decisions.",
-    icon: Compass,
-    members: [
-      { name: "Noman Ejaz", isLead: true },
-      { name: "Areeba Anjum" },
-      { name: "Rahima Amir" },
-    ],
+    name: "Eesha Akhtar Iqbal",
+    role: "President NSME",
+    year: "4th year",
+    image: "/leads/Eesha Akhtar Iqbal.jpeg",
   },
   {
-    name: "Automation & Control",
-    description: "Embedded logic, control systems, and smart maritime workflows.",
-    icon: Cpu,
-    members: [
-      { name: "Zain Ul Abideen", isLead: true },
-      { name: "Saif Ur Rehman" },
-      { name: "Saman Jamali" },
-      { name: "Faiza Ahmed" },
-    ],
+    name: "Zain Ul Abideen",
+    role: "Vice President NSME",
+    year: "4th year",
+    image: "/leads/Zain Ul Abideen.jpeg",
   },
   {
-    name: "Fabrication Unit",
-    description: "Prototyping, structure execution, and build quality.",
-    icon: Compass,
-    members: [
-      { name: "Muhammad Abdullah", isLead: true },
-      { name: "Muhammad Umair Jelani" },
-      { name: "Zainab Jibran" },
-      { name: "Nadia Batool" },
-    ],
+    name: "Areeba Anjum",
+    role: "Technical Director",
+    year: "3rd year",
+    image: "/leads/Areeba Anjum.jpeg",
   },
   {
-    name: "Marketing",
-    description: "Outreach, partnerships, and audience growth.",
-    icon: Megaphone,
-    members: [
-      { name: "Zainab Jibran", isLead: true },
-      { name: "Faiza Ahmed" },
-      { name: "Sania Ahmed" },
-      { name: "Muhammad Umair Jelani" },
-    ],
+    name: "Zainab Jibran",
+    role: "Marketing Director",
+    year: "4th year",
+    image: "/leads/Zainab Jibran.jpeg",
   },
   {
-    name: "Media",
-    description: "Storytelling, visual identity, and event coverage.",
-    icon: Camera,
-    members: [
-      { name: "Faiza Ahmed", isLead: true },
-      { name: "Zainab Jibran" },
-      { name: "Syeda Alishba Hamid" },
-      { name: "Hassan Asghar" },
-      { name: "Usman Khan" },
-      { name: "Yussar Suleman" },
-      { name: "Shoaib Ahmed" },
-      { name: "Afaque Ahmed" },
-    ],
+    name: "Faiza Ahmad Mahar",
+    role: "Media Director",
+    year: "4th year",
+    image: "/leads/Faiza Ahmad Mahar.jpeg",
   },
 ];
 
 export function Team() {
-  const [activeDepartment, setActiveDepartment] = useState<Department | null>(null);
+  const president = leads.find((l) => l.role.includes("President") && !l.role.includes("Vice"));
+  const vicePresident = leads.find((l) => l.role.includes("Vice"));
+  const directors = leads.filter((l) => l.role.includes("Director"));
 
-  useEffect(() => {
-    if (!activeDepartment) return;
-
-    const onEsc = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setActiveDepartment(null);
-      }
-    };
-
-    window.addEventListener("keydown", onEsc);
-    return () => window.removeEventListener("keydown", onEsc);
-  }, [activeDepartment]);
+  const LeadCard = ({ lead, size = "default" }: { lead: Lead; size?: "default" | "large" }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ y: -6 }}
+      className="relative group"
+    >
+      <div className="absolute -inset-0.5 bg-gradient-to-br from-sea/40 to-sea-light/20 rounded-2xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="relative rounded-2xl overflow-hidden border border-border bg-card shadow-card hover:shadow-[0_20px_60px_-20px_oklch(0.52_0.14_230/0.35)] transition-all duration-500">
+        <div className={`relative overflow-hidden ${size === "large" ? "aspect-[4/5]" : "aspect-[3/4]"}`}>
+          <img
+            src={lead.image}
+            alt={lead.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-sea-deep/90 via-sea-deep/20 to-transparent" />
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-sea-pale/90 mb-1.5">{lead.role}</p>
+          <h3 className="font-display text-lg sm:text-xl font-semibold text-white leading-tight mb-1">{lead.name}</h3>
+          <p className="text-sm text-white/70">{lead.year}</p>
+        </div>
+      </div>
+    </motion.div>
+  );
 
   return (
-    <section id="team" className="relative py-24 md:py-32 overflow-hidden">
-      <div className="absolute inset-0 gradient-radial opacity-50" />
+    <section id="team" className="relative py-24 md:py-32 overflow-hidden bg-sea-pale-section">
+      <div className="absolute inset-0 gradient-radial-strong pointer-events-none" />
+
       <div className="container mx-auto px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -103,122 +85,71 @@ export function Team() {
           transition={{ duration: 0.7 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full glass text-xs uppercase tracking-[0.2em] text-cyan-glow mb-5">
-            Our Team
+          <span className="inline-block px-4 py-1.5 rounded-full glass text-xs uppercase tracking-[0.2em] text-sea mb-5">
+            Leadership
           </span>
-          <h2 className="font-display font-bold text-4xl md:text-6xl">
-            Departments & <span className="text-gradient">People</span>
+          <h2 className="font-display font-bold text-4xl md:text-6xl text-foreground">
+            Our <span className="text-gradient">Leads</span>
           </h2>
           <p className="mt-5 text-muted-foreground text-lg">
-            Explore each department to meet the team behind NSME.
-          </p>
-          <p className="mt-3 text-sm text-cyan-soft/90">
-            Click any department card to view its member list.
+            The driving force behind NSME's vision and success.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 max-w-6xl mx-auto">
-          {departments.map((department, index) => {
-            const Icon = department.icon;
-            return (
-              <motion.button
-                key={department.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-70px" }}
-                transition={{ duration: 0.45, delay: index * 0.06 }}
-                whileHover={{ y: -4 }}
-                whileTap={{ scale: 0.99 }}
-                onClick={() => setActiveDepartment(department)}
-                className="text-left rounded-2xl border border-white/12 bg-card/70 backdrop-blur-xl p-6 shadow-card hover:border-cyan-glow/45 hover:bg-card/85 transition-all"
-                aria-haspopup="dialog"
-                aria-label={`Open ${department.name} team members`}
+        <div className="max-w-6xl mx-auto">
+          {/* President */}
+          {president && (
+            <div className="flex flex-col items-center mb-8">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="w-full max-w-xs"
               >
-                <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-glow/35 bg-cyan-glow/10 text-cyan-soft">
-                  <Icon className="h-5 w-5" />
+                <LeadCard lead={president} size="large" />
+              </motion.div>
+              <div className="mt-6 w-px h-12 bg-gradient-to-b from-sea to-transparent" />
+            </div>
+          )}
+
+          {/* Vice President */}
+          {vicePresident && (
+            <div className="flex flex-col items-center mb-8">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="w-full max-w-xs"
+              >
+                <LeadCard lead={vicePresident} size="large" />
+              </motion.div>
+              <div className="mt-6 w-full max-w-4xl">
+                <div className="relative h-px bg-gradient-to-r from-transparent via-sea to-transparent">
+                  <div className="absolute left-1/2 -translate-x-1/2 -top-1.5 h-3 w-3 rounded-full bg-sea ring-4 ring-sea/10" />
                 </div>
-                <h3 className="mt-4 font-display text-xl font-semibold">{department.name}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{department.description}</p>
-                <p className="mt-5 text-xs uppercase tracking-[0.14em] text-cyan-soft/90">
-                  {department.members.length} members
-                </p>
-              </motion.button>
-            );
-          })}
+              </div>
+            </div>
+          )}
+
+          {/* Directors Row */}
+          {directors.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto mt-8"
+            >
+              {directors.map((director) => (
+                <LeadCard key={director.name} lead={director} />
+              ))}
+            </motion.div>
+          )}
         </div>
       </div>
 
-      <AnimatePresence>
-        {activeDepartment && (
-          <motion.div
-            className="fixed inset-0 z-70 bg-black/55 backdrop-blur-sm p-4 sm:p-8 flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setActiveDepartment(null)}
-          >
-            <motion.div
-              role="dialog"
-              aria-modal="true"
-              aria-label={`${activeDepartment.name} department members`}
-              className="w-full max-w-2xl rounded-2xl border border-white/15 bg-card/95 shadow-card overflow-hidden"
-              initial={{ opacity: 0, y: 30, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.98 }}
-              transition={{ duration: 0.24, ease: "easeOut" }}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <div className="flex items-start justify-between gap-4 border-b border-border/70 px-5 sm:px-6 py-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.16em] text-cyan-soft">Department</p>
-                  <h3 className="mt-1 font-display text-2xl font-semibold">{activeDepartment.name}</h3>
-                </div>
-                <button
-                  onClick={() => setActiveDepartment(null)}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/15 bg-background/35 hover:bg-background/55 transition-colors"
-                  aria-label="Close team dialog"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-
-              <div className="px-5 sm:px-6 py-5 sm:py-6">
-                <ul className="space-y-3">
-                  {activeDepartment.members.map((member) => (
-                    <li
-                      key={member.name}
-                      className={`flex items-center justify-between gap-3 rounded-xl border px-4 py-3 ${
-                        member.isLead
-                          ? "border-cyan-glow/40 bg-cyan-glow/10"
-                          : "border-white/10 bg-background/35"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3 min-w-0">
-                        <span
-                          className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border ${
-                            member.isLead
-                              ? "border-cyan-glow/45 text-cyan-soft bg-cyan-glow/12"
-                              : "border-white/14 text-muted-foreground bg-background/45"
-                          }`}
-                          aria-hidden="true"
-                        >
-                          <UserCircle2 className="h-5 w-5" />
-                        </span>
-                        <span className="text-sm sm:text-base font-medium truncate">{member.name}</span>
-                      </div>
-                      {member.isLead && (
-                        <span className="rounded-full border border-cyan-glow/45 bg-cyan-glow/15 px-2.5 py-1 text-[11px] uppercase tracking-wider text-cyan-soft">
-                          Lead
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

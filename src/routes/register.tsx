@@ -16,7 +16,8 @@ function RegisterPage() {
       <main>
         <section className="relative py-20 sm:py-32 overflow-hidden pt-32 sm:pt-40">
           {/* Background effects */}
-          <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
+          <div className="absolute inset-0 bg-grid opacity-15 pointer-events-none" />
+          <div className="absolute inset-0 gradient-radial pointer-events-none" />
           
           <div className="container relative mx-auto px-4 sm:px-6 flex items-center justify-center">
             <motion.div
@@ -30,7 +31,7 @@ function RegisterPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.6 }}
-                className="text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.1] mb-6"
+                className="text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.1] mb-6 text-foreground"
               >
                 Join <span className="text-gradient">NSME</span>
               </motion.h1>
@@ -52,20 +53,20 @@ function RegisterPage() {
                 transition={{ delay: 0.25, duration: 0.6 }}
                 className="flex flex-wrap justify-center gap-4 sm:gap-6"
               >
-                <div className="flex items-center gap-2 text-sm">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+                <div className="flex items-center gap-2 text-sm text-foreground">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-600">
                     <Users className="h-4 w-4" />
                   </div>
                   <span>Multiple teams</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-cyan-glow/20 text-cyan-soft">
+                <div className="flex items-center gap-2 text-sm text-foreground">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-sea/12 text-sea">
                     <Anchor className="h-4 w-4" />
                   </div>
                   <span>Maritime focus</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-violet-500/20 text-violet-400">
+                <div className="flex items-center gap-2 text-sm text-foreground">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-violet-500/15 text-violet-600">
                     <ArrowRight className="h-4 w-4" />
                   </div>
                   <span>Fast application</span>

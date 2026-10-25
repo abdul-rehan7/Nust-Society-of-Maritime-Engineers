@@ -237,8 +237,8 @@ function AdminPage() {
   const statusTone = regEnabled === null
     ? "bg-amber-500/15 text-amber-200 border-amber-400/30"
     : regEnabled
-      ? "bg-emerald-500/15 text-emerald-200 border-emerald-400/30"
-      : "bg-red-500/15 text-red-200 border-red-400/30";
+      ? "bg-emerald-500/15 text-emerald-700 border-emerald-400/30"
+      : "bg-red-500/15 text-red-700 border-red-400/30";
 
   const formatDate = (value: string) => {
     const d = new Date(value);
@@ -307,14 +307,14 @@ function AdminPage() {
   return (
     <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-25 pointer-events-none" />
-      <div className="absolute -top-40 -right-20 h-96 w-96 rounded-full bg-cyan-glow/10 blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-40 -left-20 h-96 w-96 rounded-full bg-navy-light/40 blur-3xl pointer-events-none" />
+      <div className="absolute -top-40 -right-20 h-96 w-96 rounded-full bg-sea/10 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-40 -left-20 h-96 w-96 rounded-full bg-sea-light/20 blur-3xl pointer-events-none" />
 
       <div className="container relative mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-10 sm:pb-14">
         <div className="mb-8 rounded-2xl border border-border/80 bg-card/70 backdrop-blur-xl p-5 sm:p-7 shadow-card">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="inline-flex items-center gap-2 rounded-full border border-cyan-glow/30 bg-cyan-glow/10 px-3 py-1 text-xs tracking-wide uppercase text-cyan-soft">
+              <p className="inline-flex items-center gap-2 rounded-full border border-sea/30 bg-sea/10 px-3 py-1 text-xs tracking-wide uppercase text-sea">
                 <Shield className="h-3.5 w-3.5" />
                 Admin Access
               </p>
@@ -453,7 +453,7 @@ function AdminPage() {
               </button>
 
               <button
-                className={`btn inline-flex items-center gap-2 ${regEnabled ? "border-red-500/40 text-red-300" : "border-emerald-500/40 text-emerald-300"}`}
+                className={`btn inline-flex items-center gap-2 ${regEnabled ? "border-red-500/40 text-red-600" : "border-emerald-500/40 text-emerald-600"}`}
                 onClick={toggleRegistration}
                 disabled={regEnabled === null || dataLoading}
               >
@@ -465,17 +465,17 @@ function AdminPage() {
             {(notice || error) && (
               <div className="space-y-2">
                 {notice && (
-                  <div className="flex items-start gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-emerald-100 text-sm">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
-                    <span>{notice}</span>
-                  </div>
-                )}
-                {error && (
-                  <div className="flex items-start gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-red-100 text-sm">
-                    <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                    <span>{error}</span>
-                  </div>
-                )}
+              <div className="flex items-start gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-emerald-700 text-sm">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
+                <span>{notice}</span>
+              </div>
+            )}
+            {error && (
+              <div className="flex items-start gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-red-700 text-sm">
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
               </div>
             )}
 
@@ -533,7 +533,7 @@ function AdminPage() {
                           <td className="py-3">{formatDate(r.created_at)}</td>
                           <td className="py-3 text-right">
                             <button
-                              className="inline-flex items-center gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs font-medium text-red-200 transition-colors hover:border-red-400/50 hover:bg-red-500/15 disabled:opacity-60"
+                              className="inline-flex items-center gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs font-medium text-red-700 transition-colors hover:border-red-400/50 hover:bg-red-500/15 disabled:opacity-60"
                               onClick={() => deleteRegistration(String(r.id))}
                               disabled={deleteLoading === `registration-${r.id}`}
                             >
@@ -576,7 +576,7 @@ function AdminPage() {
                           <td className="py-3">{formatDate(c.created_at)}</td>
                           <td className="py-3 text-right">
                             <button
-                              className="inline-flex items-center gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs font-medium text-red-200 transition-colors hover:border-red-400/50 hover:bg-red-500/15 disabled:opacity-60"
+                              className="inline-flex items-center gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs font-medium text-red-700 transition-colors hover:border-red-400/50 hover:bg-red-500/15 disabled:opacity-60"
                               onClick={() => deleteContact(String(c.id))}
                               disabled={deleteLoading === `contact-${c.id}`}
                             >
