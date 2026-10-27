@@ -3,18 +3,117 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 import { ArrowLeft, X, ZoomIn } from "lucide-react";
 
-const HERO_IMAGE = "/Boat%20Building%20Competition/9.jpeg";
+const HERO_IMAGE = "/Boat%20Building%20Competition/Competition_1/9.jpeg";
 
-const images: { src: string; alt: string }[] = [
-  { src: "/Boat%20Building%20Competition/1.jpeg", alt: "Boat Building Competition — concept stage" },
-  { src: "/Boat%20Building%20Competition/2.jpeg", alt: "Boat Building Competition — building in progress" },
-  { src: "/Boat%20Building%20Competition/3.jpeg", alt: "Boat Building Competition — team at work" },
-  { src: "/Boat%20Building%20Competition/4.jpeg", alt: "Boat Building Competition — hull construction" },
-  { src: "/Boat%20Building%20Competition/5.jpeg", alt: "Boat Building Competition — engineering the design" },
-  { src: "/Boat%20Building%20Competition/6.jpeg", alt: "Boat Building Competition — launch day" },
-  { src: "/Boat%20Building%20Competition/7.jpeg", alt: "Boat Building Competition — on the water" },
-  { src: "/Boat%20Building%20Competition/8.jpeg", alt: "Boat Building Competition — competition moment" },
-  { src: "/Boat%20Building%20Competition/9.jpeg", alt: "Boat Building Competition — the finished boats" },
+type GalleryImage = { src: string; alt: string };
+
+type Edition = {
+  year: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  images: GalleryImage[];
+};
+
+const editions: Edition[] = [
+  {
+    year: "2025",
+    title: "Boat Building Competition 2025",
+    subtitle: "Second Edition",
+    description:
+      "The second edition of NSME's boat building challenge — another round of styrofoam hulls, tight deadlines and ideas tested on the water.",
+    images: [
+      {
+        src: "/Boat%20Building%20Competition/Competition_2/1.jpeg",
+        alt: "Boat Building Competition 2025 — concept stage",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_2/2.jpeg",
+        alt: "Boat Building Competition 2025 — building in progress",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_2/3.jpeg",
+        alt: "Boat Building Competition 2025 — team at work",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_2/4.jpeg",
+        alt: "Boat Building Competition 2025 — hull construction",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_2/5.jpeg",
+        alt: "Boat Building Competition 2025 — engineering the design",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_2/6.jpeg",
+        alt: "Boat Building Competition 2025 — launch day",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_2/7.jpeg",
+        alt: "Boat Building Competition 2025 — on the water",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_2/8.jpeg",
+        alt: "Boat Building Competition 2025 — competition moment",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_2/9.jpeg",
+        alt: "Boat Building Competition 2025 — the finished boats",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_2/10.jpeg",
+        alt: "Boat Building Competition 2025 — showcase",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_2/11.jpeg",
+        alt: "Boat Building Competition 2025 — team moment",
+      },
+    ],
+  },
+  {
+    year: "2024",
+    title: "Boat Building Competition 2024",
+    subtitle: "First Edition",
+    description:
+      "The first edition of the competition, where students took styrofoam boats from early sketches through construction and into the water.",
+    images: [
+      {
+        src: "/Boat%20Building%20Competition/Competition_1/1.jpeg",
+        alt: "Boat Building Competition 2024 — concept stage",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_1/2.jpeg",
+        alt: "Boat Building Competition 2024 — building in progress",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_1/3.jpeg",
+        alt: "Boat Building Competition 2024 — team at work",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_1/4.jpeg",
+        alt: "Boat Building Competition 2024 — hull construction",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_1/5.jpeg",
+        alt: "Boat Building Competition 2024 — engineering the design",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_1/6.jpeg",
+        alt: "Boat Building Competition 2024 — launch day",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_1/7.jpeg",
+        alt: "Boat Building Competition 2024 — on the water",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_1/8.jpeg",
+        alt: "Boat Building Competition 2024 — competition moment",
+      },
+      {
+        src: "/Boat%20Building%20Competition/Competition_1/9.jpeg",
+        alt: "Boat Building Competition 2024 — the finished boats",
+      },
+    ],
+  },
 ];
 
 const highlights = [
@@ -69,7 +168,10 @@ function BoatBuildingPage() {
             className="absolute inset-0 bg-gradient-to-t from-sea-deep/80 via-sea-deep/55 to-sea-deep/40"
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" aria-hidden="true" />
+          <div
+            className="absolute inset-0 bg-grid opacity-20 pointer-events-none"
+            aria-hidden="true"
+          />
 
           <div className="container relative mx-auto px-4 sm:px-6 pb-16 sm:pb-20 w-full">
             <motion.div
@@ -108,7 +210,10 @@ function BoatBuildingPage() {
 
         {/* ── Overview ─────────────────────────────────────────── */}
         <section className="relative py-20 md:py-24">
-          <div className="absolute inset-0 gradient-radial pointer-events-none" aria-hidden="true" />
+          <div
+            className="absolute inset-0 gradient-radial pointer-events-none"
+            aria-hidden="true"
+          />
           <div className="container relative mx-auto px-4 sm:px-6 max-w-3xl text-center">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -130,7 +235,10 @@ function BoatBuildingPage() {
               <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
                 {highlights.map((h) => (
                   <li key={h} className="text-sm text-muted-foreground flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-glow shrink-0" aria-hidden="true" />
+                    <span
+                      className="h-1.5 w-1.5 rounded-full bg-cyan-glow shrink-0"
+                      aria-hidden="true"
+                    />
                     {h}
                   </li>
                 ))}
@@ -139,61 +247,90 @@ function BoatBuildingPage() {
           </div>
         </section>
 
-        {/* ── Gallery ──────────────────────────────────────────── */}
-        <section className="relative pb-20 md:pb-28">
-          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6 }}
-              className="mb-10"
-            >
-              <h3 className="font-display font-semibold text-2xl sm:text-3xl">
-                Moments from the Competition
-              </h3>
-              <p className="mt-2 text-muted-foreground text-[15px]">
-                A look at the ideas, the build process and the launch.
-              </p>
-            </motion.div>
+        {/* ── Editions & Galleries ─────────────────────────────── */}
+        {editions.map((edition) => (
+          <section
+            key={edition.year}
+            id={`boat-building-${edition.year}`}
+            className="relative pb-20 md:pb-28 scroll-mt-24"
+          >
+            <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.6 }}
+                className="mb-8 sm:mb-10"
+              >
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3">
+                  <span className="font-display text-4xl sm:text-5xl font-bold text-gradient leading-none">
+                    {edition.year}
+                  </span>
+                  <span className="px-2.5 py-1 rounded-full border border-sea/30 bg-sea/10 text-sea text-[10px] sm:text-[11px] uppercase tracking-[0.18em] sm:tracking-[0.2em]">
+                    {edition.subtitle}
+                  </span>
+                </div>
+                <h3 className="font-display font-semibold text-2xl sm:text-3xl">{edition.title}</h3>
+                <p className="mt-2 text-muted-foreground text-[15px] max-w-2xl">
+                  {edition.description}
+                </p>
+              </motion.div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-              {images.map((img, i) => (
-                <motion.button
-                  key={img.src}
-                  type="button"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+              {edition.images.length > 0 ? (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                  {edition.images.map((img, i) => (
+                    <motion.button
+                      key={img.src}
+                      type="button"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ duration: 0.5, delay: i * 0.05 }}
+                      onClick={() => setLightbox({ src: img.src, alt: img.alt })}
+                      className="group relative aspect-[4/3] rounded-2xl overflow-hidden border border-border/60 cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-glow/60"
+                      aria-label={`View larger: ${img.alt}`}
+                    >
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                      />
+                      <div
+                        className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"
+                        aria-hidden="true"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400">
+                        <span className="glass-dark rounded-full p-3 text-white/90 shadow-glow">
+                          <ZoomIn className="h-5 w-5" />
+                        </span>
+                      </div>
+                    </motion.button>
+                  ))}
+                </div>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
-                  onClick={() => setLightbox({ src: img.src, alt: img.alt })}
-                  className="group relative aspect-[4/3] rounded-2xl overflow-hidden border border-border/60 cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-glow/60"
-                  aria-label={`View larger: ${img.alt}`}
+                  transition={{ duration: 0.5 }}
+                  className="rounded-2xl border border-dashed border-border bg-muted/30 px-6 py-12 text-center"
                 >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                  />
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500"
-                    aria-hidden="true"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-400">
-                    <span className="glass-dark rounded-full p-3 text-white/90 shadow-glow">
-                      <ZoomIn className="h-5 w-5" />
-                    </span>
-                  </div>
-                </motion.button>
-              ))}
+                  <p className="text-sm text-muted-foreground">
+                    Photos from the {edition.year} competition will be added soon.
+                  </p>
+                </motion.div>
+              )}
             </div>
-          </div>
-        </section>
+          </section>
+        ))}
 
         {/* ── CTA ──────────────────────────────────────────────── */}
         <section className="relative py-20 md:py-28 mt-4 border-t border-border/60">
-          <div className="absolute inset-0 gradient-radial pointer-events-none" aria-hidden="true" />
+          <div
+            className="absolute inset-0 gradient-radial pointer-events-none"
+            aria-hidden="true"
+          />
           <div className="container relative mx-auto px-4 sm:px-6 text-center max-w-2xl">
             <motion.div
               initial={{ opacity: 0, y: 24 }}

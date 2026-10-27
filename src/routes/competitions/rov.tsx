@@ -10,6 +10,7 @@ const images: { src: string; alt: string }[] = [
   { src: "/Pipe%20ROV/2.jpeg", alt: "Pipe ROV — engineering the build" },
   { src: "/Pipe%20ROV/3.jpeg", alt: "Pipe ROV — systems and wiring" },
   { src: "/Pipe%20ROV/4.jpeg", alt: "Pipe ROV — underwater demonstration" },
+  { src: "/Pipe%20ROV/5.jpeg", alt: "Pipe ROV — project showcase" },
 ];
 
 const highlights = [
@@ -64,7 +65,10 @@ function RovPage() {
             className="absolute inset-0 bg-gradient-to-t from-sea-deep/80 via-sea-deep/55 to-sea-deep/40"
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" aria-hidden="true" />
+          <div
+            className="absolute inset-0 bg-grid opacity-20 pointer-events-none"
+            aria-hidden="true"
+          />
 
           <div className="container relative mx-auto px-4 sm:px-6 pb-16 sm:pb-20 w-full">
             <motion.div
@@ -102,7 +106,10 @@ function RovPage() {
 
         {/* ── Overview ─────────────────────────────────────────── */}
         <section className="relative py-20 md:py-24">
-          <div className="absolute inset-0 gradient-radial pointer-events-none" aria-hidden="true" />
+          <div
+            className="absolute inset-0 gradient-radial pointer-events-none"
+            aria-hidden="true"
+          />
           <div className="container relative mx-auto px-4 sm:px-6 max-w-3xl text-center">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -124,7 +131,10 @@ function RovPage() {
               <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
                 {highlights.map((h) => (
                   <li key={h} className="text-sm text-muted-foreground flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-glow shrink-0" aria-hidden="true" />
+                    <span
+                      className="h-1.5 w-1.5 rounded-full bg-cyan-glow shrink-0"
+                      aria-hidden="true"
+                    />
                     {h}
                   </li>
                 ))}
@@ -187,7 +197,10 @@ function RovPage() {
 
         {/* ── CTA ──────────────────────────────────────────────── */}
         <section className="relative py-20 md:py-28 mt-4 border-t border-border/60">
-          <div className="absolute inset-0 gradient-radial pointer-events-none" aria-hidden="true" />
+          <div
+            className="absolute inset-0 gradient-radial pointer-events-none"
+            aria-hidden="true"
+          />
           <div className="container relative mx-auto px-4 sm:px-6 text-center max-w-2xl">
             <motion.div
               initial={{ opacity: 0, y: 24 }}

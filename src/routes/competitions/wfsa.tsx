@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
-import { ArrowLeft, Award, ExternalLink, FileText, Trophy, X, ZoomIn } from "lucide-react";
+import { ArrowLeft, Award, ExternalLink, FileText, Trophy, Video, X, ZoomIn } from "lucide-react";
 
 const HERO_IMAGE = "/WFSA%20Ferry%202026/1.jpeg";
 
@@ -20,6 +20,7 @@ type Edition = {
   achievements?: string[];
   details?: string[];
   images: { src: string; alt: string }[];
+  video?: string;
   certificates?: Certificate[];
   vesselName?: string;
   route?: string;
@@ -75,6 +76,7 @@ const editions: Edition[] = [
       { src: "/WFSA%20Ferry%202026/3.jpeg", alt: "WFSA 2025–2026 - design presentation" },
       { src: "/WFSA%20Ferry%202026/4.jpeg", alt: "WFSA 2025–2026 - competition moment" },
     ],
+    video: "/WFSA%20Ferry%202026/video.mp4",
     certificates: [
       {
         title: "Charles R. Cushing Award — First Place, Aesthetic Design",
@@ -150,7 +152,13 @@ const editions: Edition[] = [
       "The team members received the NUST High Achievers Awards for participating in an international engineering competition and representing NUST globally.",
       "This recognition was a commendable milestone for the society and further motivated the team.",
     ],
-    images: [],
+    images: [
+      { src: "/WFSA%20Ferry%202023/1.jpeg", alt: "WFSA 2023 — ferry design" },
+      { src: "/WFSA%20Ferry%202023/2.jpeg", alt: "WFSA 2023 — team at work" },
+      { src: "/WFSA%20Ferry%202023/3.jpeg", alt: "WFSA 2023 — design presentation" },
+      { src: "/WFSA%20Ferry%202023/4.jpeg", alt: "WFSA 2023 — competition moment" },
+      { src: "/WFSA%20Ferry%202023/5.jpeg", alt: "WFSA 2023 — project showcase" },
+    ],
     certificates: [
       {
         title: "WFSA 2023 — Participation Certificate",
@@ -562,6 +570,37 @@ function WfsaPage() {
                     );
                   })}
                 </div>
+              )}
+
+              {edition.video && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.6 }}
+                  className="mt-6 sm:mt-10"
+                >
+                  <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                    <Video className="h-5 w-5 text-sea" />
+                    <h4 className="font-display font-semibold text-lg sm:text-xl">
+                      Ferry Showcase
+                    </h4>
+                  </div>
+                  <div className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-border/60 bg-black shadow-card">
+                    <video
+                      src={edition.video}
+                      poster="/WFSA%20Ferry%202026/1.jpeg"
+                      className="w-full aspect-video object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      controls
+                      aria-label={`${edition.title} — ferry showcase video`}
+                    />
+                  </div>
+                </motion.div>
               )}
             </div>
           </section>

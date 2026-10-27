@@ -20,7 +20,7 @@ const comps: {
     title: "Boat Building Competition",
     desc: "Internal hands-on competition where students design, engineer and build styrofoam boats from concept to launch.",
     tag: "On-Campus",
-    image: "/Boat%20Building%20Competition/8.jpeg",
+    image: "/Boat%20Building%20Competition/Competition_1/8.jpeg",
     href: "/competitions/boat-building",
   },
   {
